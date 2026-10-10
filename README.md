@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # HP LR Housing Predictor
 
 A responsive HTML/CSS/JavaScript frontend with a Flask prediction API and your uploaded `HP_LR_model.pkl`.
@@ -42,3 +43,7 @@ Example request body (replace values with valid inputs for your model):
 ```
 
 The model was saved with scikit-learn 1.6.1, so that version is pinned in `requirements.txt`.
+=======
+# HavenAI-House-Price-Prediction
+House price prdiction 
+>>>>>>> 9d5abf14a6e9acd4c20e328cbcf4fb6910a89599
