@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HomeValue — Price Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#"><span class="brand-mark">H</span><span>HomeValue</span></a>
+      <span class="status"><i></i> Local prediction app</span>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">SMART PROPERTY ESTIMATOR</span>
+      <h1>A clearer view of<br><em>your home's value.</em></h1>
+      <p>Enter four property inputs to generate an estimate from your trained machine-learning model.</p>
+    </section>
+
+    <section class="layout">
+      <section class="panel form-panel">
+        <div class="panel-head">
+          <div><span class="kicker">PROPERTY INPUTS</span><h2>Property details</h2></div>
+          <span class="count">4 fields</span>
+        </div>
+        <form id="predictionForm">
+          <div class="fields">
+            {% for feature in features %}
+            <label class="field">
+              <span>{{ feature.label }}</span>
+              <div class="input-shell">
+                <input type="number" name="{{ feature.key }}" placeholder="{{ feature.placeholder }}" step="{{ feature.step }}" {% if feature.min is not none %}min="{{ feature.min }}"{% endif %} required>
+                <small>{{ feature.unit }}</small>
+              </div>
+            </label>
+            {% endfor %}
+          </div>
+          <div class="form-note"><span>i</span><p>Use the same units and feature order as the data used to train this model.</p></div>
+          <div class="actions">
+            <button type="button" id="resetBtn" class="btn btn-light">Clear fields</button>
+            <button type="submit" id="predictBtn" class="btn btn-primary"><span id="buttonText">Estimate price <b>↗</b></span><span id="spinner" class="spinner hidden"></span></button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel result-panel">
+        <div class="result-head"><span class="kicker">YOUR ESTIMATE</span><span class="home-icon">⌂</span></div>
+        <div id="emptyState" class="empty">
+          <div class="empty-art"><span>↗</span></div>
+          <h3>Your estimate starts here</h3>
+          <p>Fill in the property details, then select <strong>Estimate price</strong> to see the model's result.</p>
+        </div>
+        <div id="resultState" class="result hidden">
+          <span>Predicted value</span>
+          <strong id="predictionValue">—</strong>
+          <p>Model-generated estimate</p>
+        </div>
+        <div class="disclaimer"><span>!</span><p>This is an estimate produced by your model, not a certified property valuation.</p></div>
+      </aside>
+    </section>
+    <footer><span>HomeValue</span><span class="footer-dot">•</span><span>Flask API · scikit-learn</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
